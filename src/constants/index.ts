@@ -32,6 +32,7 @@ export interface NewsItem {
   desc: string;
   fullDesc: string;
   isFeatured?: boolean;
+  link_url?: string;
 }
 
 export const NEWS_DATA: NewsItem[] = [

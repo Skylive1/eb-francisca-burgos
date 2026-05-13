@@ -5,17 +5,17 @@ import { Shield, BookOpen, Users, Sparkles, GraduationCap, Heart } from 'lucide-
 const WhyChooseUs = () => {
   const reasons = [
     {
-      icon: <GraduationCap />,
+      Icon: GraduationCap,
       title: "Excelencia Académica",
       desc: "Programas diseñados para el éxito universitario y profesional con altos estándares internacionales."
     },
     {
-      icon: <Heart />,
+      Icon: Heart,
       title: "Formación en Valores",
       desc: "Cultivamos la integridad, el respeto y la responsabilidad como base del carácter de nuestros líderes."
     },
     {
-      icon: <Sparkles />,
+      Icon: Sparkles,
       title: "Innovación Constante",
       desc: "Tecnología de vanguardia y metodologías activas que preparan para los retos del siglo XXI."
     }
@@ -52,7 +52,7 @@ const WhyChooseUs = () => {
               className="bg-white p-10 rounded-[3rem] shadow-xl hover:shadow-2xl transition-all duration-500 border border-slate-100 group"
             >
               <div className="w-16 h-16 bg-vinotinto/5 rounded-2xl flex items-center justify-center text-vinotinto mb-8 group-hover:bg-vinotinto group-hover:text-white transition-all duration-500">
-                {React.cloneElement(reason.icon as React.ReactElement, { size: 32 })}
+                <reason.Icon size={32} />
               </div>
               <h4 className="text-2xl font-display font-black text-slate-800 tracking-tighter mb-4 uppercase italic">
                 {reason.title}

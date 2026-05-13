@@ -36,8 +36,8 @@ const Home = ({ isScrolled, showIntro }: { isScrolled: boolean; showIntro: boole
         if (eventsRes.error) throw eventsRes.error;
 
         const combinedData = [
-          ...(newsRes.data || []).map(item => ({ ...item, type: 'news' })),
-          ...(eventsRes.data || []).map(item => ({ ...item, type: 'events' }))
+          ...(newsRes.data || []).map((item: any) => ({ ...item, type: 'news' })),
+          ...(eventsRes.data || []).map((item: any) => ({ ...item, type: 'events' }))
         ];
         
         if (combinedData.length > 0) {

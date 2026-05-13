@@ -13,7 +13,7 @@ import escudoLogo from './escudo.png';
 
 interface TimelineStepProps {
   step: number;
-  icon: React.ReactNode;
+  icon: any; // LucideIcon
   title: string;
   description: string;
   details: string[];
@@ -21,7 +21,7 @@ interface TimelineStepProps {
   delay: number;
 }
 
-const TimelineStep = ({ step, icon, title, description, details, isLast = false, delay }: TimelineStepProps) => {
+const TimelineStep = ({ step, icon: Icon, title, description, details, isLast = false, delay }: TimelineStepProps) => {
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
@@ -37,7 +37,7 @@ const TimelineStep = ({ step, icon, title, description, details, isLast = false,
       <div className="flex flex-col items-center shrink-0">
         <div className="w-16 h-16 bg-gradient-to-br from-vinotinto to-vinotinto-dark rounded-2xl flex items-center justify-center shadow-xl shadow-vinotinto/20 group-hover:scale-110 transition-transform duration-500 relative z-10">
           <div className="text-gold">
-            {React.cloneElement(icon as React.ReactElement<any>, { size: 28 })}
+            <Icon size={28} />
           </div>
         </div>
         {!isLast && (
@@ -74,14 +74,14 @@ const TimelineStep = ({ step, icon, title, description, details, isLast = false,
 // --- Requirement Card ---
 
 interface RequirementCardProps {
-  icon: React.ReactNode;
+  icon: any; // LucideIcon
   title: string;
   items: string[];
   accent: string;
   delay: number;
 }
 
-const RequirementCard = ({ icon, title, items, accent, delay }: RequirementCardProps) => (
+const RequirementCard = ({ icon: Icon, title, items, accent, delay }: RequirementCardProps) => (
   <motion.div
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -94,7 +94,7 @@ const RequirementCard = ({ icon, title, items, accent, delay }: RequirementCardP
       <div className="flex items-center gap-5 mb-8">
         <div className="w-14 h-14 bg-gradient-to-br from-vinotinto to-vinotinto-dark rounded-xl flex items-center justify-center shadow-lg">
           <div className="text-gold">
-            {React.cloneElement(icon as React.ReactElement<any>, { size: 24 })}
+            <Icon size={24} />
           </div>
         </div>
         <h4 className="text-xl font-display font-black text-slate-800 tracking-tighter uppercase">{title}</h4>
@@ -372,7 +372,7 @@ const Admisiones = () => {
           <div className="relative">
             <TimelineStep
               step={1}
-              icon={<FileText />}
+              icon={FileText}
               title="Postulación"
               description="El padre o representante llena el formulario de solicitud de información con los datos del estudiante."
               details={[
@@ -384,7 +384,7 @@ const Admisiones = () => {
             />
             <TimelineStep
               step={2}
-              icon={<Calendar />}
+              icon={Calendar}
               title="Entrevista y Evaluación"
               description="Se asigna una fecha para conocer al estudiante y a su familia. Incluye entrevista con la dirección y/o psicólogo."
               details={[
@@ -396,7 +396,7 @@ const Admisiones = () => {
             />
             <TimelineStep
               step={3}
-              icon={<UserCheck />}
+              icon={UserCheck}
               title="Aceptación"
               description="El colegio confirma la disponibilidad de cupo y comunica la decisión de admisión a la familia."
               details={[
@@ -408,7 +408,7 @@ const Admisiones = () => {
             />
             <TimelineStep
               step={4}
-              icon={<CreditCard />}
+              icon={CreditCard}
               title="Inscripción Formal"
               description="Proceso administrativo de pago de matrícula y consignación de documentos para formalizar el ingreso."
               details={[
@@ -448,7 +448,7 @@ const Admisiones = () => {
 
           <div className="grid lg:grid-cols-3 gap-8">
             <RequirementCard
-              icon={<GraduationCap />}
+              icon={GraduationCap}
               title="Del Estudiante"
               accent="bg-gradient-to-br from-vinotinto/5 to-gold/5"
               delay={0.1}
@@ -463,7 +463,7 @@ const Admisiones = () => {
               ]}
             />
             <RequirementCard
-              icon={<Users />}
+              icon={Users}
               title="Del Representante"
               accent="bg-gradient-to-br from-gold/5 to-vinotinto/5"
               delay={0.2}
@@ -475,7 +475,7 @@ const Admisiones = () => {
               ]}
             />
             <RequirementCard
-              icon={<Heart />}
+              icon={Heart}
               title="Documentos Adicionales"
               accent="bg-gradient-to-br from-vinotinto/5 to-gold/5"
               delay={0.3}
