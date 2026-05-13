@@ -139,30 +139,23 @@ const Admisiones = () => {
     setSubmitError(null);
 
     try {
-      const serviceId = 'service_mer5y18';
-      const templateId = 'template_q76xiya';
-      const publicKey = '8hwM5ErrYtzPhV_Wa';
+      const response = await fetch('/api/admissions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
 
-      await emailjs.send(
-        serviceId, 
-        templateId, 
-        {
-          parentName: formData.parentName,
-          email: formData.email,
-          phone: formData.phone,
-          studentName: formData.studentName,
-          grade: formData.grade,
-          message: formData.message || 'Sin mensaje',
-        }, 
-        publicKey
-      );
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Error en el servidor');
+      }
 
       setIsSubmitted(true);
       setFormData({ parentName: '', email: '', phone: '', studentName: '', grade: '', message: '' });
       setTimeout(() => setIsSubmitted(false), 5000);
     } catch (error: any) {
       console.error('Error al enviar admisión:', error);
-      setSubmitError(`Error técnico: ${error?.text || error?.message || 'Revisa la consola'}`);
+      setSubmitError(`Error técnico: ${error.message || 'Revisa la consola'}`);
     } finally {
       setIsSubmitting(false);
     }

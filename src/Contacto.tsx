@@ -20,14 +20,33 @@ const Contacto = () => {
     message: ''
   });
 
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert('Mensaje enviado (Simulado)');
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    setIsSubmitting(true);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      if (response.ok) {
+        alert('¡Mensaje enviado con éxito! Nos pondremos en contacto pronto.');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        alert('Error al enviar el mensaje. Por favor intente más tarde.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error de conexión.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -215,11 +234,12 @@ const Contacto = () => {
                     </div>
 
                     <motion.button
-                      whileHover={{ scale: 1.02, boxShadow: "0 20px 40px -10px rgba(122, 0, 38, 0.2)" }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full bg-vinotinto text-white py-6 rounded-2xl font-display font-black uppercase tracking-widest text-sm flex items-center justify-center gap-3 group relative overflow-hidden"
+                      whileHover={{ scale: isSubmitting ? 1 : 1.02, boxShadow: isSubmitting ? "none" : "0 20px 40px -10px rgba(122, 0, 38, 0.2)" }}
+                      whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                      disabled={isSubmitting}
+                      className="w-full bg-vinotinto text-white py-6 rounded-2xl font-display font-black uppercase tracking-widest text-sm flex items-center justify-center gap-3 group relative overflow-hidden disabled:opacity-70 disabled:cursor-not-allowed"
                     >
-                      <span className="relative z-10">Enviar Mensaje</span>
+                      <span className="relative z-10">{isSubmitting ? 'Enviando...' : 'Enviar Mensaje'}</span>
                       <Send size={18} className="relative z-10 group-hover:translate-x-2 group-hover:-translate-y-1 transition-transform" />
                       <div className="absolute inset-0 bg-gold translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
                     </motion.button>

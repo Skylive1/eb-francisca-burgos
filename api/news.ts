@@ -8,7 +8,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const { data, error } = await supabase
-      .from('news')
+      .from('school_news')
       .select('*')
       .order('id', { ascending: false });
 

@@ -3,6 +3,7 @@ import nodemailer from 'nodemailer';
 export const sendAdmissionEmail = async (admissionData: any) => {
   const user = process.env.EMAIL_USER;
   const pass = process.env.EMAIL_PASS;
+  const adminEmail = process.env.ADMIN_EMAIL || user;
 
   if (!user || !pass) {
     console.error('EMAIL_USER o EMAIL_PASS no configurados');
@@ -16,7 +17,7 @@ export const sendAdmissionEmail = async (admissionData: any) => {
 
   const mailOptions = {
     from: user,
-    to: 'skylive557@gmail.com',
+    to: adminEmail,
     subject: 'Nueva Solicitud de Admisión - U.E.P. Francisca Elena Burgos',
     html: `
       <h2>Nueva Solicitud de Admisión Recibida</h2>
