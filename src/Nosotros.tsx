@@ -104,17 +104,20 @@ const Nosotros = () => {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: <Shield className="text-gold" />,
+                Icon: Shield,
+                iconColor: "text-gold",
                 title: "Misión",
                 desc: "Formar integralmente a niños, niñas y adolescentes, basándonos en principios éticos, pedagógicos e innovadores, para desarrollar ciudadanos comprometidos con el progreso de la nación."
               },
               {
-                icon: <Target className="text-vinotinto" />,
+                Icon: Target,
+                iconColor: "text-vinotinto",
                 title: "Visión",
                 desc: "Ser la institución educativa líder y de vanguardia en la región, reconocida por su excelencia académica, formación en valores y la integración tecnológica en sus procesos de aprendizaje."
               },
               {
-                icon: <Award className="text-gold" />,
+                Icon: Award,
+                iconColor: "text-gold",
                 title: "Valores",
                 desc: "Nuestros pilares son la Disciplina, la Responsabilidad, el Respeto, la Honestidad y la Solidaridad, cimientos sobre los cuales construimos el carácter de nuestros estudiantes."
               }
@@ -128,7 +131,7 @@ const Nosotros = () => {
                 className="bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.05)] group hover:shadow-2xl hover:-translate-y-2 transition-all duration-500"
               >
                 <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
-                  {React.cloneElement(item.icon as React.ReactElement, { size: 32 })}
+                  <item.Icon size={32} className={item.iconColor} />
                 </div>
                 <h4 className="text-2xl font-display font-black text-slate-900 tracking-tighter mb-4 uppercase italic">{item.title}</h4>
                 <p className="text-slate-500 font-medium leading-relaxed italic">{item.desc}</p>

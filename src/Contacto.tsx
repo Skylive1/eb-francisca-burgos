@@ -76,25 +76,29 @@ const Contacto = () => {
               <div className="grid gap-6">
                 {[
                   {
-                    icon: <Phone className="text-gold" />,
+                    Icon: Phone,
+                    iconColor: "text-gold",
                     label: "Llámanos",
                     value: "+58 424-5833511",
                     sub: "Atención Lunes a Viernes"
                   },
                   {
-                    icon: <Mail className="text-vinotinto" />,
+                    Icon: Mail,
+                    iconColor: "text-vinotinto",
                     label: "Correo Electrónico",
                     value: "contacto@febd.edu.ve",
                     sub: "Respondemos en menos de 24h"
                   },
                   {
-                    icon: <MapPin className="text-gold" />,
+                    Icon: MapPin,
+                    iconColor: "text-gold",
                     label: "Ubicación",
                     value: "Municipio Dabajuro, Edo. Falcón",
                     sub: "Sector La Gran Vía"
                   },
                   {
-                    icon: <Clock className="text-vinotinto" />,
+                    Icon: Clock,
+                    iconColor: "text-vinotinto",
                     label: "Horario Escolar",
                     value: "7:00 AM – 4:00 PM",
                     sub: "Horario Corrido"
@@ -109,7 +113,7 @@ const Contacto = () => {
                     className="flex items-start gap-6 p-8 bg-slate-50 rounded-[2rem] border border-slate-100 hover:bg-white hover:shadow-2xl hover:border-vinotinto/10 transition-all duration-500 group"
                   >
                     <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500 shrink-0">
-                      {React.cloneElement(item.icon as React.ReactElement, { size: 24 })}
+                      <item.Icon size={24} className={item.iconColor} />
                     </div>
                     <div>
                       <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">{item.label}</p>
