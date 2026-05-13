@@ -1,0 +1,128 @@
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from 'react-router-dom';
+
+import { supabase } from './lib/supabaseClient';
+import { useLocation } from 'react-router-dom';
+
+// Componentes del Dashboard y Paneles
+import PanelProfesor from './components/Profesor/PanelProfesor';
+import PanelAdmin from './components/Admin/PanelAdmin';
+import PantallaPrincipal from './components/Dashboard/PantallaPrincipal';
+import Admisiones from './Admisiones';
+import Academia from './Academia';
+import WhatsAppButton from './WhatsAppButton';
+import FormularioInscripcion from './FormularioInscripcion';
+
+// Componentes Refactorizados
+import Portal from './components/Auth/Portal';
+import Home from './components/Home/Home';
+import MainLayout from './components/Layout/MainLayout';
+import SplashScreen from './components/Shared/SplashScreen';
+import ScrollToTop from './components/Shared/ScrollToTop';
+import ValidacionPedido from './components/Dashboard/ValidacionPedido';
+import Nosotros from './Nosotros';
+import Contacto from './Contacto';
+import Terminos from './Terminos';
+import Privacidad from './Privacidad';
+
+const AppContent = () => {
+  const [showSplash, setShowSplash] = React.useState(true);
+  const [showIntro, setShowIntro] = React.useState(false);
+  const [isScrolled, setIsScrolled] = React.useState(false);
+  const { pathname } = useLocation();
+
+  const hideHelpTools = pathname.startsWith('/profesor') || pathname.startsWith('/admin') || pathname.startsWith('/dashboard') || pathname.startsWith('/cafetin');
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+
+    // Detección de primera visita para el intro
+    const hasSeenIntro = sessionStorage.getItem('hasSeenIntro_2026');
+    if (!hasSeenIntro) {
+      setShowIntro(true);
+      sessionStorage.setItem('hasSeenIntro_2026', 'true');
+    }
+
+    const handlePageshow = (event: any) => {
+      // Si la página se carga desde el caché del explorador (botón atrás)
+      if (event.persisted) {
+        // OCULTAR TODO AL INSTANTE para eliminar el parpadeo
+        document.body.style.display = 'none'; 
+        window.location.reload();
+      }
+    };
+    window.addEventListener('pageshow', handlePageshow);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('pageshow', handlePageshow);
+    };
+  }, [showSplash]);
+
+  const handleSplashFinish = () => {
+    setShowSplash(false);
+  };
+
+  return (
+    <div className="min-h-screen bg-[#fafafa] font-sans text-slate-900 selection:bg-gold/30 selection:text-black">
+        {showSplash && <SplashScreen onFinish={handleSplashFinish} />}
+        
+        <Routes>
+          <Route path="/" element={<MainLayout isScrolled={isScrolled}><Home isScrolled={isScrolled} showIntro={showIntro} /></MainLayout>} />
+          <Route path="/portal" element={<MainLayout isScrolled={isScrolled}><Portal /></MainLayout>} />
+          <Route path="/admisiones" element={<MainLayout isScrolled={isScrolled}><Admisiones /></MainLayout>} />
+          <Route path="/academia" element={<MainLayout isScrolled={isScrolled}><Academia /></MainLayout>} />
+          <Route path="/nosotros" element={<MainLayout isScrolled={isScrolled}><Nosotros /></MainLayout>} />
+          <Route path="/contacto" element={<MainLayout isScrolled={isScrolled}><Contacto /></MainLayout>} />
+          <Route path="/terminos" element={<MainLayout isScrolled={isScrolled}><Terminos /></MainLayout>} />
+          <Route path="/privacidad" element={<MainLayout isScrolled={isScrolled}><Privacidad /></MainLayout>} />
+          <Route path="/inscripcion" element={<FormularioInscripcion />} />
+          
+          <Route path="/dashboard/*" element={<PantallaPrincipal rol="estudiante" onLogout={async () => { 
+              await supabase.auth.signOut(); 
+              localStorage.clear(); 
+              window.location.href = '/portal'; 
+          }} />} />
+          
+          <Route path="/profesor/*" element={<PanelProfesor rol="profesor" onLogout={async () => { 
+              await supabase.auth.signOut(); 
+              localStorage.clear(); 
+              window.location.href = '/portal'; 
+          }} />} />
+          
+          <Route path="/admin/*" element={<PanelAdmin rol="admin" onLogout={async () => { 
+              await supabase.auth.signOut(); 
+              localStorage.clear(); 
+              window.location.href = '/portal'; 
+          }} />} />
+
+          <Route path="/cafetin/*" element={<PantallaPrincipal rol="cafetin" onLogout={async () => { 
+              await supabase.auth.signOut(); 
+              localStorage.clear(); 
+              window.location.href = '/portal'; 
+          }} />} />
+
+          <Route path="/validar/:id" element={<ValidacionPedido />} />
+        </Routes>
+        {!hideHelpTools && <WhatsAppButton />}
+    </div>
+  );
+};
+
+const App = () => {
+  return (
+    <Router>
+      <ScrollToTop />
+      <AppContent />
+    </Router>
+  );
+};
+
+export default App;
