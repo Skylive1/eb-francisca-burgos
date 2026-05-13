@@ -13,7 +13,7 @@ import {
 
 interface LevelData {
   id: string;
-  icon: React.ReactNode;
+  Icon: any;
   title: string;
   subtitle: string;
   grades: string[];
@@ -26,7 +26,7 @@ interface LevelData {
 }
 
 interface ProgramData {
-  icon: React.ReactNode;
+  Icon: any;
   title: string;
   desc: string;
   badge?: string;
@@ -37,7 +37,7 @@ interface ProgramData {
 const LEVELS: LevelData[] = [
   {
     id: 'inicial',
-    icon: <Heart />,
+    Icon: Heart,
     title: 'Educación Inicial',
     subtitle: 'Preescolar',
     grades: ['Preescolar I (3 años)', 'Preescolar II (4 años)', 'Preescolar III (5 años)'],
@@ -56,7 +56,7 @@ const LEVELS: LevelData[] = [
   },
   {
     id: 'primaria',
-    icon: <BookOpen />,
+    Icon: BookOpen,
     title: 'Educación Primaria',
     subtitle: '1ero a 6to Grado',
     grades: ['1er Grado', '2do Grado', '3er Grado', '4to Grado', '5to Grado', '6to Grado'],
@@ -76,7 +76,7 @@ const LEVELS: LevelData[] = [
   },
   {
     id: 'media',
-    icon: <GraduationCap />,
+    Icon: GraduationCap,
     title: 'Media General',
     subtitle: '1ero a 5to Año',
     grades: ['1er Año', '2do Año', '3er Año', '4to Año', '5to Año'],
@@ -97,8 +97,8 @@ const LEVELS: LevelData[] = [
 ];
 
 const SPECIAL_PROGRAMS: ProgramData[] = [
-  { icon: <Globe />, title: 'Inglés Intensivo', desc: 'Programa de inmersión en inglés desde preescolar con certificación internacional.', badge: 'Cambridge' },
-  { icon: <Globe />, title: 'Francés', desc: 'Formación en lengua francesa como segundo idioma extranjero, ampliando horizontes culturales y oportunidades internacionales.', badge: 'Idiomas' },
+  { Icon: Globe, title: 'Inglés Intensivo', desc: 'Programa de inmersión en inglés desde preescolar con certificación internacional.', badge: 'Cambridge' },
+  { Icon: Globe, title: 'Francés', desc: 'Formación en lengua francesa como segundo idioma extranjero, ampliando horizontes culturales y oportunidades internacionales.', badge: 'Idiomas' },
 ];
 
 const EVALUATION_SYSTEM = [
@@ -133,7 +133,7 @@ const LevelCard = ({ level, index, isExpanded, onToggle }: { level: LevelData; i
         <div className="p-8 md:p-10 flex items-start gap-6">
           <div className={`w-16 h-16 bg-gradient-to-br ${level.color} rounded-2xl flex items-center justify-center shadow-lg shrink-0 group-hover:scale-110 transition-transform duration-500`}>
             <div className="text-white">
-              {React.cloneElement(level.icon as React.ReactElement<any>, { size: 30 })}
+              <level.Icon size={30} />
             </div>
           </div>
           <div className="flex-1 min-w-0">
@@ -274,7 +274,7 @@ const ProgramCard = ({ program, delay }: { program: ProgramData; delay: number }
       <div className="flex items-start justify-between mb-6">
         <div className="w-14 h-14 bg-gradient-to-br from-vinotinto to-vinotinto-dark rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
           <div className="text-gold">
-            {React.cloneElement(program.icon as React.ReactElement<any>, { size: 24 })}
+            <program.Icon size={24} />
           </div>
         </div>
         {program.badge && (
@@ -360,7 +360,7 @@ const Academia = () => {
                     }}
                     className="bg-white/10 backdrop-blur-md text-white border border-white/15 px-6 py-3 rounded-xl text-sm font-bold hover:bg-white/20 hover:border-white/30 transition-all flex items-center gap-2 group"
                   >
-                    {React.cloneElement(level.icon as React.ReactElement<any>, { size: 16, className: 'text-gold' })}
+                    <level.Icon size={16} className="text-gold" />
                     {level.title}
                     <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform opacity-60" />
                   </motion.button>

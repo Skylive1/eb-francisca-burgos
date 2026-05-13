@@ -6,7 +6,7 @@ const ValoresSection = () => {
   const values = [
     { 
       id: 0, 
-      icon: <Shield />, 
+      Icon: Shield, 
       title: "Integridad", 
       desc: "Actuamos con honestidad, ética y profunda transparencia en cada decisión que tomamos. Convertimos la sinceridad en la brújula principal de nuestra comunidad educativa.",
       color: "from-blue-600 to-indigo-600",
@@ -14,7 +14,7 @@ const ValoresSection = () => {
     },
     { 
       id: 1, 
-      icon: <Activity />, 
+      Icon: Activity, 
       title: "Excelencia", 
       desc: "Buscamos incansablemente superar los más altos estándares vocacionales y académicos. Nos esforzamos por la grandeza tanto en el éxito profesional como en el desarrollo humano.",
       color: "from-vinotinto to-red-700",
@@ -22,7 +22,7 @@ const ValoresSection = () => {
     },
     { 
       id: 2, 
-      icon: <Sparkles />, 
+      Icon: Sparkles, 
       title: "Innovación", 
       desc: "Abrazamos audazmente las mejores metodologías y tecnologías para fomentar una mente crítica. Adaptamos el aprendizaje para empoderar mentes brillantes preparadas para el futuro.",
       color: "from-gold to-yellow-600",
@@ -30,7 +30,7 @@ const ValoresSection = () => {
     },
     { 
       id: 3, 
-      icon: <Compass />, 
+      Icon: Compass, 
       title: "Liderazgo", 
       desc: "Formamos individuos resilientes con el propósito de guiar con un impacto profundamente positivo. Impulsamos la capacidad de inspirar y generar verdaderos cambios en la sociedad.",
       color: "from-emerald-600 to-teal-600",
@@ -89,7 +89,7 @@ const ValoresSection = () => {
               <div className={`absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br ${val.color} rounded-full blur-[50px] opacity-0 group-hover:opacity-10 transition-opacity duration-700`}></div>
               
               <div className="w-16 h-16 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500 relative z-10 text-vinotinto">
-                {React.cloneElement(val.icon as React.ReactElement<any>, { size: 28, strokeWidth: 1.5 })}
+                <val.Icon size={28} strokeWidth={1.5} />
               </div>
 
               <h4 className="text-2xl font-display font-black text-slate-900 tracking-tighter mb-4 group-hover:text-vinotinto transition-colors duration-300 relative z-10">

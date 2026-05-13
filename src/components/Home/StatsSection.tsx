@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Sparkles, X, Target, BookOpen, Users, GraduationCap, Award } from 'lucide-react';
 
-const StatCard = ({ icon, target, label, suffix = "", delay = 0 }: { icon: React.ReactNode, target: number, label: string, suffix?: string, delay: number }) => {
+const StatCard = ({ icon: Icon, target, label, suffix = "", delay = 0 }: { icon: any, target: number, label: string, suffix?: string, delay: number }) => {
   const [count, setCount] = React.useState(0);
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -39,7 +39,7 @@ const StatCard = ({ icon, target, label, suffix = "", delay = 0 }: { icon: React
     >
       <div className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-[2rem] flex items-center justify-center mb-8 border border-white/10 group-hover:scale-110 group-hover:bg-white/20 transition-all duration-500 shadow-xl shadow-black/10">
         <div className="text-white transform group-hover:rotate-12 transition-transform duration-500">
-          {React.cloneElement(icon as React.ReactElement<any>, { size: 36 })}
+          <Icon size={36} />
         </div>
       </div>
       <div className="flex flex-col">
@@ -77,10 +77,10 @@ const StatsSection = () => (
         <p className="text-white/40 mt-6 text-lg font-medium max-w-2xl mx-auto">Nuestro compromiso se refleja en cada estudiante que confía en nuestra visión educativa.</p>
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-        <StatCard icon={<BookOpen />} target={34} label="Educación Inicial" delay={0.1} />
-        <StatCard icon={<Users />} target={158} label="Primaria Básica" delay={0.2} />
-        <StatCard icon={<GraduationCap />} target={243} label="Media General" delay={0.3} />
-        <StatCard icon={<Award />} target={99.7} label="Éxito Académico" suffix="%" delay={0.4} />
+        <StatCard icon={BookOpen} target={34} label="Educación Inicial" delay={0.1} />
+        <StatCard icon={Users} target={158} label="Primaria Básica" delay={0.2} />
+        <StatCard icon={GraduationCap} target={243} label="Media General" delay={0.3} />
+        <StatCard icon={Award} target={99.7} label="Éxito Académico" suffix="%" delay={0.4} />
       </div>
     </div>
   </section>
